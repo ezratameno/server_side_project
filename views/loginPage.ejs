@@ -1,0 +1,30 @@
+<%- include("header") -%>
+<main class="form-signin w-50 m-auto text-center vsc-initialized ">
+    <form method="post" action="/login">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingId" name="id">
+        <label for="floatingId">User ID</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingFirstName" name="firstName">
+        <label for="floatingFirstName">First Name</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingLastName" name="lastName">
+        <label for="floatingLastName">Last Name</label>
+      </div>
+      <div class="form-floating">
+        <input type="date" min="1920-01-01" max="2022-12-31" value="2018-07-22" class="form-control" id="floatingDate" name="birthday">
+        <label for="floatingDate">Birthday</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" list="Canada;Denmark;Finland;Germany;Mexico" class="form-control" id="floatingMaritalStatus" name="maritalStatus">
+        <label for="floatingMaritalStatus">Marital Status</label>
+      </div>
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    </form>
+  </main>
+
+<%- include("footer") -%>
