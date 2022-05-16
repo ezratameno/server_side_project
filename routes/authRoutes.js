@@ -1,5 +1,7 @@
 const session = require('express-session');
-
+const mongoose = require('mongoose');
+//get the user schema from mongoose
+const User = mongoose.model('users');
 module.exports = function authRoutes(app) {
     // display the login form
     app.get("/login",(req,res) =>{
@@ -34,6 +36,9 @@ module.exports = function authRoutes(app) {
         req.session.user = {
             user: user
         }
+        // TODO: turn into promise
+        const newUser = new User(user);
+        newUser.save();
         // TODO: check using the id if the user is already at the database.
         // if not than we save it
         req.session.authnticated = true

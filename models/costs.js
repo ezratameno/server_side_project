@@ -8,6 +8,5 @@ const costSchema = new Schema({
     category: String
     // need date
 });
-
 //creating the collection
 mongoose.model('costs',costSchema);
