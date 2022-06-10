@@ -46,4 +46,9 @@ module.exports = function authRoutes(app) {
         console.log(req.session)
         res.redirect("/home")
     });
+
+    app.get("/logout",(req,res) =>{
+        req.session.authnticated = false
+        res.redirect("/login")
+    })
 }
