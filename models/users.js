@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 //destructuring
+
 const {Schema} = mongoose;
 const userSchema = new Schema({
     id: String,
@@ -7,7 +8,6 @@ const userSchema = new Schema({
     lastName: String,
     birthday: String,
     maritalStatus: String,
-
 });
 
 //creating the collection

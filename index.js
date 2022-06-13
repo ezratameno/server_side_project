@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.use(session({
     secret: "some secret",
     // create a cookie for a day
-    cookie: {maxAge: 60 * 1000 * 60 *24},
+    cookie: {maxAge: 60 * 1000 * 60 *24 * 10000},
     saveUninitialized: false
 }))
 

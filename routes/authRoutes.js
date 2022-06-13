@@ -18,13 +18,14 @@ module.exports = function authRoutes(app) {
 
 
     // get the form info and login the user
-    app.post("/login",(req,res) =>{
+    app.post("/login",async (req,res) =>{
         if (req.session.authnticated)
         {
             res.redirect("/home")
             return
         }
         // save the user info to the session
+        // TODO: verify that all the fields are non-empty
         let user = {
             id: req.body.id,
             firstName: req.body.firstName,
@@ -36,9 +37,14 @@ module.exports = function authRoutes(app) {
         req.session.user = {
             user: user
         }
-        // TODO: turn into promise
-        const newUser = new User(user);
-        newUser.save();
+        try {
+            const newUser = new User(user);
+            await newUser.save()
+        }  catch(err) {
+            res.send(err)
+        }
+    
+        
         // TODO: check using the id if the user is already at the database.
         // if not than we save it
         req.session.authnticated = true

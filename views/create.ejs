@@ -1,0 +1,29 @@
+<%- include("header") -%>
+<%- include("nav") -%>
+
+
+<main class="form-signin w-50 m-auto text-center vsc-initialized ">
+    <form method="post" action="/create">
+      <h1 class="h3 mb-3 fw-normal">Please fill the form</h1>
+      <div class="form-floating">
+        <input type="number" class="form-control" id="floatingId" name="sum">
+        <label for="floatingId">Sum</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingFirstName" name="description">
+        <label for="floatingFirstName">Description</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingLastName" name="category">
+        <label for="floatingLastName">Category</label>
+      </div>
+      <div class="form-floating">
+        <input type="date" min="1920-01-01" max="2022-12-31" value="2018-07-22" class="form-control" id="floatingDate" name="date">
+        <label for="floatingDate">Date</label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+    </form>
+  </main>
+
+
+<%- include("footer") -%>

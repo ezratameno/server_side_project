@@ -3,10 +3,9 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const costSchema = new Schema({
-    description: String,
-    sum: String,
-    category: String
-    // need date
+    id: String,
+    // will be a map of year and month
+    costs: Map
 });
 //creating the collection
 mongoose.model('costs',costSchema);
