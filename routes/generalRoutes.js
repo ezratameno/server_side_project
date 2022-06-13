@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const Costs = mongoose.model('costs');
@@ -31,8 +32,7 @@ module.exports = function generalRoutes(app) {
         } catch(err) {
             res.send(err)
         }
-        console.log("before ifff")
-        console.log(userCostEntry)
+
         // if user not exist
         if (!userCostEntry) {
             // create cost entry
@@ -42,16 +42,11 @@ module.exports = function generalRoutes(app) {
             }
             userCostEntry.id = req.session.user.user.id
             userCostEntry.costs = new Map()
-            console.log(userCostEntry)
-            console.log("enter ifff")
+
         }
 
-        console.log("after ifff")
-        console.log(userCostEntry)
 
-
-        
-        let date = cost.date.split('-')[1] + "-" +cost.date.split('-')[0]
+        let date = cost.date.split('-')[1] + "-" + cost.date.split('-')[0]
         // if we don't have any entries for this month and year
         if (typeof userCostEntry.costs[date] == 'undefined') {
             userCostEntry.costs[date] = {
@@ -60,13 +55,22 @@ module.exports = function generalRoutes(app) {
             }
             userCostEntry.costs[date].total = 0 
         }
+        userCostEntry.costs[date].items.push(cost)
 
-        userCostEntry.costs[date].items.push({cost})
-        userCostEntry.costs[date].total += Number(cost.sum)
-
+        // add to the map
+        userCostEntry.costs.set(date,{
+            items: userCostEntry.costs[date].items,
+            total: userCostEntry.costs[date].total += Number(cost.sum)
+        })
+        
+        
         try {
             const newCostEntry = new Costs(userCostEntry)
-            await newCostEntry.save()
+
+            console.log(userCostEntry)
+            console.log(newCostEntry)
+
+            await newCostEntry.save();
         } catch(err) {
             // TODO: create custome errors or error page
             res.send(err)
