@@ -76,6 +76,7 @@ module.exports = function generalRoutes(app) {
             // add to the map
             userCostEntry.costs.set(date,{
                 items: userCostEntry.costs[date].items,
+                // implament the Computed pattern, so we won't need to recalculate the total each time the user want to get a status
                 total: userCostEntry.costs[date].total += Number(cost.sum)
             });
         } else {
@@ -97,7 +98,6 @@ module.exports = function generalRoutes(app) {
             const newCostEntry = new Costs(userCostEntry)
             await newCostEntry.save();
         } catch(err) {
-            // TODO: create custome errors or error page
             res.send(err)
         }
         res.render("showCost",{cost: cost})

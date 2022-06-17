@@ -29,7 +29,6 @@ module.exports = function authRoutes(app) {
             return
         }
         // save the user info to the session
-        // TODO: verify that all the fields are non-empty
         let user = {
             id: req.body.id,
             firstName: req.body.firstName,
@@ -58,9 +57,6 @@ module.exports = function authRoutes(app) {
             res.send(err)
         }
     
-        
-        // TODO: check using the id if the user is already at the database.
-        // if not than we save it
         req.session.authnticated = true
 
         res.redirect("/home")
