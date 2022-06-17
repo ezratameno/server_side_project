@@ -3,14 +3,23 @@
     <form method="post" action="/login">
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
       <div class="form-floating">
+        <% if (typeof loginFormErrors != 'undefined' && loginFormErrors.id != "") { %>
+            <p class="text-danger"><%=loginFormErrors.id%></p>
+        <% } %>
         <input type="number" class="form-control" id="floatingId" name="id">
         <label for="floatingId">User ID</label>
       </div>
       <div class="form-floating">
+        <% if (typeof loginFormErrors != 'undefined' && loginFormErrors.firstName != "") { %>
+          <p class="text-danger"><%=loginFormErrors.firstName%></p>
+        <% } %>
         <input type="text" class="form-control" id="floatingFirstName" name="firstName">
         <label for="floatingFirstName">First Name</label>
       </div>
       <div class="form-floating">
+        <% if (typeof loginFormErrors != 'undefined' && loginFormErrors.lastName != "") { %>
+          <p class="text-danger"><%=loginFormErrors.lastName%></p>
+        <% } %>
         <input type="text" class="form-control" id="floatingLastName" name="lastName">
         <label for="floatingLastName">Last Name</label>
       </div>
@@ -19,6 +28,9 @@
         <label for="floatingDate">Birthday</label>
       </div>
       <div class="form-floating">
+        <% if (typeof loginFormErrors != 'undefined' && loginFormErrors.maritalStatus != "") { %>
+          <p class="text-danger"><%=loginFormErrors.maritalStatus%></p>
+        <% } %>
         <input type="text" list="Canada;Denmark;Finland;Germany;Mexico" class="form-control" id="floatingMaritalStatus" name="maritalStatus">
         <label for="floatingMaritalStatus">Marital Status</label>
       </div>
