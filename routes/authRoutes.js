@@ -11,8 +11,6 @@ module.exports = function authRoutes(app) {
             res.redirect("/home")
             return
         }
-        console.log(req.session);
-        // need to add the 
         res.render("loginPage");
     });
 
@@ -49,7 +47,6 @@ module.exports = function authRoutes(app) {
         // if not than we save it
         req.session.authnticated = true
 
-        console.log(req.session)
         res.redirect("/home")
     });
 

@@ -1,3 +1,24 @@
 <%- include("header") -%>
 <%- include("nav") -%>
+<h4>User Name: <%=user.firstName%>  <%=user.lastName%></h4>
+<h4>Birthday: <%=user.birthday%></h4>
+<h4>Marital Status: <%=user.maritalStatus%></h4>
+<% if (!userCosts || typeof userCosts == 'undefined' ) {%>
+    <h1>You have no costs to display yet.</h4>
+<% } else { %>
+    <% userCosts.costs.forEach((value, date, map)=> { %>
+        <!-- maybe create a div? -->
+        <h4>In <%= date %> you have spent <%= value.total %>$ on <%= value.items.length%> items</h4>
+        <h5>Your cost items for this month:</h5>
+        <%for (var i=0; i < value.items.length;i++) {%>
+                <p>sum: <%=value.items[i].sum%> <br>
+                description: <%=value.items[i].description%> <br>
+                category: <%=value.items[i].category%> <br>
+                date: <%=value.items[i].date%></p>
+            <% }%>
+    <%}) }%>
+
+
+
 <%- include("footer") -%>
+

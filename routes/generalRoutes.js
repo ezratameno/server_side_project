@@ -5,8 +5,9 @@ const Costs = mongoose.model('costs');
 
 module.exports = function generalRoutes(app) {
     // will show the cost items of the user
-    app.get("/home",function(req,res){
-        res.render("home")
+    app.get("/home",async function(req,res){
+        let userCosts = await Costs.findOne({"id": req.session.user.user.id}) 
+        res.render("home",{userCosts: userCosts,user: req.session.user.user})
     });
 
 
@@ -21,7 +22,6 @@ module.exports = function generalRoutes(app) {
             description: req.body.description,
             category: req.body.category,
             date: req.body.date,
-            id: req.session.user.user.id
         }
 
         // find the user by id in costs
@@ -86,9 +86,6 @@ module.exports = function generalRoutes(app) {
             // TODO: create custome errors or error page
             res.send(err)
         }
-        // TODO: create a page that will show that we successfuly created a cost item
-        res.send(userCostEntry)
-
-        // need to extract the 
+        res.render("showCost",{cost: cost})
     })
 }
