@@ -12,7 +12,12 @@ module.exports = function generalRoutes(app) {
 
 
     app.get("/create", (req,res) => {
-        res.render("create")
+        let createFormErrors = {
+            sum: "",
+            description: "",
+            category: "",
+        }
+        res.render("create",{createFormErrors: checkCreateFormErrors})
     })
 
     app.post("/create", async (req,res) => {
@@ -22,6 +27,15 @@ module.exports = function generalRoutes(app) {
             description: req.body.description,
             category: req.body.category,
             date: req.body.date,
+        }
+
+        let resulet = checkCreateFormErrors(cost)
+        let createFormErrors = resulet[0]
+        let isErrors = resulet[1]
+        // if there are errors we want to re-render the form
+        if (isErrors) {
+            res.render("create", {createFormErrors: createFormErrors})
+            return
         }
 
         // find the user by id in costs
@@ -88,4 +102,35 @@ module.exports = function generalRoutes(app) {
         }
         res.render("showCost",{cost: cost})
     })
+
+    function checkCreateFormErrors(cost) {
+        let createFormErrors = {
+            sum: "",
+            description: "",
+            category: "",
+        }
+        let isErrors 
+        isErrors = false
+        if (cost.sum == "") {
+            createFormErrors.sum = "Must be a non empty field!"
+            isErrors = true
+        }
+        if (isNaN(cost.sum)) {
+            createFormErrors.sum = "sum must be a number"
+            isErrors = true
+        }
+        if (!isNaN(cost.sum) && cost.sum < 0) {
+            createFormErrors.sum = "sum must a positive number"
+            isErrors = true
+        }
+        if (cost.description == "") {
+            createFormErrors.description = "Must be a non empty field!"
+            isErrors = true
+        }
+        if (cost.category == "") {
+            createFormErrors.category = "Must be a non empty field!"
+            isErrors = true
+        }
+        return [createFormErrors, isErrors]
+    }
 }

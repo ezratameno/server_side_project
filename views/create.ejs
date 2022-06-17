@@ -6,14 +6,23 @@
     <form method="post" action="/create">
       <h1 class="h3 mb-3 fw-normal">Please fill the form</h1>
       <div class="form-floating">
+        <% if (typeof createFormErrors != 'undefined' && createFormErrors.sum != "") { %>
+          <p class="text-danger"><%=createFormErrors.sum%></p>
+        <% } %>
         <input type="number" class="form-control" id="floatingId" name="sum">
         <label for="floatingId">Sum</label>
       </div>
       <div class="form-floating">
+        <% if (typeof createFormErrors != 'undefined' && createFormErrors.description != "") { %>
+          <p class="text-danger"><%=createFormErrors.description%></p>
+        <% } %>
         <input type="text" class="form-control" id="floatingFirstName" name="description">
         <label for="floatingFirstName">Description</label>
       </div>
       <div class="form-floating">
+        <% if (typeof createFormErrors != 'undefined' && createFormErrors.category != "") { %>
+          <p class="text-danger"><%=createFormErrors.category%></p>
+        <% } %>
         <input type="text" class="form-control" id="floatingLastName" name="category">
         <label for="floatingLastName">Category</label>
       </div>

@@ -42,7 +42,8 @@ module.exports = function authRoutes(app) {
         let loginFormErrors = loginErrorResulet[0]
         let isErrors = loginErrorResulet[1]
 
-        // if there are errors in the login form we want to re-render the form to let the user know what he sholud do to correct the errors
+        // if there are errors in the login form we want to re-render the form to let the user 
+        // know what he sholud do to correct the errors
         if (isErrors) {
             res.render("loginPage",{loginFormErrors: loginFormErrors})
             return
@@ -87,12 +88,10 @@ module.exports = function authRoutes(app) {
         if (user.firstName == "") {
             loginFormErrors.firstName = "Must be a non empty field!"
             isErrors = true
-
         }
         if (user.lastName == "") {
             loginFormErrors.lastName = "Must be a non empty field!"
             isErrors = true
-
         }
 
         if (user.maritalStatus.toLowerCase() != "single" && user.maritalStatus.toLowerCase() != "married" ) {
