@@ -1,28 +1,36 @@
 <%- include("header") -%>
 <%- include("nav") -%>
-<h4>User Name: <%=user.firstName%>  <%=user.lastName%></h4>
-<h4>Birthday: <%=user.birthday%></h4>
-<h4>Marital Status: <%=user.maritalStatus%></h4>
-<% if (!userCosts || typeof userCosts == 'undefined' ) {%>
-    <h1>You have no costs to display yet.</h4>
-<% } else { %>
+<div class="container" >
+    <div class="mx-auto text-center">
+        <h3 class="display-6">Hello <strong><%=user.firstName%>  <%=user.lastName%></strong></h3>
+        <p>Birthday: <%=user.birthday%><p>
+        <p>Marital Status: <%=user.maritalStatus%></p>
+        <% if (!userCosts || typeof userCosts == 'undefined' ) {%>
+            <h4>You have no costs to display yet.</h4>
+        <% } %>
+    </div>
+
+
+
+<% if (!(!userCosts || typeof userCosts == 'undefined')) {%>
     <!-- loop over the costs map -->
     <% userCosts.costs.forEach((value, date, map)=> { %>
         <!-- maybe create a div? -->
-        <h4>In <%= date %> you have spent <%= value.total %>$ on <%= value.catagories.size%> catagories</h4>
-        <h5>Your cost items for this month:</h5>
+        <div class="rounded bg-dark text-white bg-opacity-50" style="display: block ">
+
+        <h4>In <%= date %> you have spent <strong><%= value.total %>$</strong> on <%= value.catagories.size%> catagories</h4>
         <% value.catagories.forEach((costArr,catagory,catagoryMap) => { %>
-            <h4>Your <strong><%= catagory%></strong> items:</h4>
+            <h5>Your <strong><%= catagory%></strong> items:</h5>
         <%for (var i=0; i < costArr.length;i++) {%>
                 <p>sum: <%=costArr[i].sum%> <br>
                 description: <%=costArr[i].description%> <br>
-                category: <%=costArr[i].category%> <br>
-                date: <%=costArr[i].date%></p> 
             <% }%> 
         <%}) %>
+    </div>
+
     <%}) }%>
 
-
+</div>
 
 <%- include("footer") -%>
 
