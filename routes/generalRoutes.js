@@ -68,29 +68,34 @@ module.exports = function generalRoutes(app) {
         // than we need to handle the access to the data diffrently
         if (!entryForUserExist) {
             userCostEntry.costs[date] = {
-                items: new Array(),
+                catagories: new Map(),
                 total: Number 
             }
-            userCostEntry.costs[date].total = 0
-            userCostEntry.costs[date].items.push(cost)
+            // add to the catagorie the new cost item
+            userCostEntry.costs[date].catagories.set(cost.category, new Array(cost))
             // add to the map
             userCostEntry.costs.set(date,{
-                items: userCostEntry.costs[date].items,
+                catagories: userCostEntry.costs[date].catagories,
                 // implament the Computed pattern, so we won't need to recalculate the total each time the user want to get a status
-                total: userCostEntry.costs[date].total += Number(cost.sum)
+                total: Number(cost.sum)
             });
         } else {
             // if the user already have an entry on the costs collection but don't have in this month and year
             if(typeof userCostEntry.costs.get(date) == 'undefined') {
                 userCostEntry.costs.set(date,{
-                    items: new Array(),
+                    catagories: new Map(),
                     total: 0,
                 });
             }
-            // update the items and the total amout that we spent in this mont and year
-            userCostEntry.costs.get(date).items.push(cost) 
+            // check if we have the catagory already so we only need to add to the existing array
+            if (userCostEntry.costs.get(date).catagories.has(cost.category) ) {
+                // add to the catagory the new cost item
+                userCostEntry.costs.get(date).catagories.get(cost.category).push(cost) 
+            } else {
+                userCostEntry.costs.get(date).catagories.set(cost.category,new Array(cost))
+            }
+            // update the total amout that we spent in this mont and year
             userCostEntry.costs.get(date).total += Number(cost.sum)
-
         }
     
         // save into the costs collection
@@ -103,6 +108,7 @@ module.exports = function generalRoutes(app) {
         res.render("showCost",{cost: cost})
     })
 
+    // will check for errors in the create form
     function checkCreateFormErrors(cost) {
         let createFormErrors = {
             sum: "",

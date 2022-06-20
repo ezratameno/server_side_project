@@ -8,14 +8,17 @@ const costSchema = new Schema({
     costs: {
         type: Map,
         of: {
-            items: {
-                type: Array,
+            catagories: {
+                type: Map,
                 of: {
-                    sum: Number,
-                    description: String,
-                    category: String,
-                    date: String,
-                    id: String
+                    type: Array, 
+                    of: {
+                        sum: Number,
+                        description: String,
+                        category: String,
+                        date: String,
+                        id: String
+                    }
                 }
             },
             total: Number
